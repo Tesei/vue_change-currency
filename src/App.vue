@@ -77,7 +77,7 @@ export default {
       this.cashItems[cashItem.id].picked = true;
     },
 
-    async loadMorePosts() {
+    async loadCashCosts() {
       try {
         this.response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js', {
           params: {}
@@ -90,9 +90,15 @@ export default {
       }
     },
 
+    findBaseCash() {
+      const language = window.navigator.userLanguage || window.navigator.language;
+      console.log(language);
+    }
+
   },
   mounted() {
-    this.loadMorePosts();
+    this.loadCashCosts();
+    this.findBaseCash();
   }
 };
 </script>
