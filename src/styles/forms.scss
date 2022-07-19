@@ -1,0 +1,50 @@
+//<FORM ()>====================================================================================================
+.form {
+	&__row {
+	}
+	&__column {
+	}
+	&__line {		
+		position: relative;		
+	}
+	&__label {
+		font-style: normal;
+		font-weight: 400;
+		font-size: 1rem;
+		line-height: 1.257rem;
+		letter-spacing: -0.02em;
+		color:  #49485E;
+		margin-bottom: 5px;
+		display: inline-block;
+		position: relative;
+
+		&_req::after{			
+			content: '';
+			background-color: #FF8484;
+			position: absolute;
+			width: 4px;
+			height: 4px;
+			top: -1px;
+			right: -5px;
+			border-radius: 50%;					
+		}			
+	}
+	&__input {
+		position: relative;
+	}
+	&__button {
+	}
+	&__error {	
+		position: absolute;
+		bottom: -16px;
+		left: 0;	
+		font-style: normal;
+			font-weight: 400;
+			font-size: 1.2rem;
+			line-height: 1.2rem;
+			letter-spacing: -0.02em;
+			color: darken(#FF8484, 15%);			
+	}
+}
+
+//</FORM>====================================================================================================

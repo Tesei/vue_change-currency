@@ -1,0 +1,36 @@
+// Font
+$font-family-base: "Source Sans Pro";
+$font-family-accent: "Inter";
+// $enable-smooth-scroll: false;
+$fontSize: 62.5%;
+
+// Границы адаптива ======================
+$minWidth: 320px; // Указываем минимальный размер экрана
+$maxWidth: 1440; // Указываем размер полотна
+$maxWidthContainer: 1440; // Указываем размер ограничивающего контейнера
+
+$md1: ($maxWidthContainer + 12)+ px;
+$md2: 991.98px;
+$md3: 767.98px;
+$md4: 479.98px;
+
+//<ОСНОВНАЯ СЕТКА>================================================================
+._container {
+	max-width: $maxWidthContainer + px;
+	margin: 0 auto;
+	padding: 0 32px;
+
+	@media (max-width: $md1) {
+		max-width: 1440px;
+		padding: 0 32px;
+	}
+	@media (max-width: $md2) {
+		max-width: 750px;
+		padding: 0 15px;
+	}
+	@media (max-width: $md3) {
+		max-width: none;
+		padding: 0 10px;
+	}
+}
+//===============================================================
