@@ -1,5 +1,5 @@
 # change_currency
-The project 
+The project has three currency to change. Each currency has actual data price from server of Central Bank of Russia.
 ## Project setup
 ```
 npm install
