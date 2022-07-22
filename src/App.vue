@@ -13,8 +13,21 @@
       <main class="main main__bgn">
         <div class="main__content _container">
 
-          <div class="main__row">
+          <div class="main__row" v-if="response">
             <PickCash :cashList="cashItems" :baseCurrency="baseCurrency" :arrNamesCurrency="arrCurrencyNames" />
+          </div>
+
+          <div class="main__row" v-else-if="errMessage">
+            <div class="main__preloader">
+              <h2>{{ errMessage }}</h2>
+            </div>
+          </div>
+
+          <div class="main__row" v-else>
+            <div class="main__preloader">
+              <h2>Загрузка актуальных курсов валют ..</h2>
+              <img src="../src/images/loading.gif" alt="">
+            </div>
           </div>
 
         </div>
@@ -28,23 +41,22 @@
 <script>
 import topAbout from "@/components/topAbout.vue";
 import PickCash from "@/components/PickCash.vue";
-// import InsertForm from "@/components/InsertForm.vue";
 import axios from "axios";
 
 export default {
   components: {
     topAbout,
     PickCash,
-    // InsertForm
   },
 
   data() {
     return {
       pickedCash: '', // название валюты
-      pickedCashId: '',
+      // pickedCashId: '',
       response: '',
       localLang: '',
       baseCurrency: '',
+      errMessage: '',
       arrCurrencyNames: [],
       cashItems: [
         { name: 'Рубль', id: "1", picked: false, shortName: "RUB", cost: 1, base: 2, },
@@ -53,7 +65,7 @@ export default {
   },
   methods: {
     pickUpCash(cashItem) {
-      this.pickedCashId = cashItem.id;
+      // this.pickedCashId = cashItem.id;
       this.pickedCash = cashItem.name;
 
       this.cashItems.forEach(element => {
@@ -68,13 +80,19 @@ export default {
         this.response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js', {
           params: {}
         });
-        // console.log(elementResp);
-      } catch (e) {
-        console.log(e);
+        // Вывод сообщения в случае отсутствия ответа сервера
+        setTimeout(() => {
+          if (!this.response) {
+            this.errMessage = "Сервер данных по курсам валют недоступен. Попоробуйтие обновить страницу или зайти на сайт поздее";
+            throw "ошибка в данных переменной response";
+          }
+        }, 5000);
+      } catch (err) {
+        console.log(err);
       }
     },
 
-    // Находилокальную валюту
+    // Находим локальную валюту
     findBaseCash() {
       const language = window.navigator.userLanguage || window.navigator.language;
       this.localLang = language.slice(-2, language.length).toLowerCase();
@@ -84,7 +102,6 @@ export default {
       setTimeout(() => {
         const mostPopularCurrency = ['USD', 'EUR'];
         const elementResp = this.response.data.Valute;
-        // console.log(elementResp);
 
         // Добавляем базовую локальную валюту в список
         for (const key in this.response.data.Valute) {
@@ -132,10 +149,6 @@ export default {
 @import '@/styles/index.scss';
 
 #app {}
-
-* {}
-
-.app {}
 
 .wrapper {}
 
@@ -202,13 +215,36 @@ h3 {
     width: 100%;
   }
 
+  // .main__preloader
+  &__preloader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+      display: block;
+      margin-bottom: 40px;
+    }
+
+    img {
+      max-width: 100px;
+    }
+  }
+
   // .main__row
   &__row {
     display: flex;
     justify-content: space-evenly;
+    position: relative;
+    z-index: 1;
 
     @media (max-width: $md3) {
       display: block;
+    }
+
+    h2 {
+      color: $blue;
     }
   }
 
@@ -225,19 +261,4 @@ h3 {
   // .main__pick-cash
   &__pick-cash {}
 }
-
-.fade-enter-active,
-.fade-leave-active {
-  transition: all 0.25s ease-in-out;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-  transform: translateX(-50px);
-}
-
-.fade-enter-from {}
-
-.fade-enter-to {}
 </style>

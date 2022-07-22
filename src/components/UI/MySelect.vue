@@ -11,7 +11,6 @@
 
 <script>
 export default {
-    // указываем имя компонента, для его индентификации по-тегу
     name: 'my-select',
     props: {
         modelValue: {
@@ -65,17 +64,13 @@ export default {
         font-size: 1.6rem;
         line-height: 1.2;
         cursor: pointer;
-        // padding: 15px 10px;
-        // margin: 10px 0px 0px 0px;
 
-        // @media (min-width: 992px) {
-        //     &:hover {
-        //         background: darken(#FFFEFB, 20%);
-        //     }
-        // }
+        @media (min-width: 992px) {
+            &:hover {
+                background-color: lighten($fiolet-light, 42%);
+            }
+        }
     }
-
-
 }
 
 option:checked {

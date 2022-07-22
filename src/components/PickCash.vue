@@ -80,8 +80,6 @@ export default {
                 if (this.selectedTo) return item.name === this.selectedTo;
                 else return item.name === this.baseCurrency;
             });
-            // console.log(selectObjFrom);
-            // console.log(selectObjFrom.nominal);
             this.result = (selectObjFrom.cost * Number(this.usersRoubles.replace(/ /g, '')) / selectObjTo.cost).toFixed(2).replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('') + ' ' + selectObjTo.shortName;
         }
     },
@@ -143,9 +141,6 @@ export default {
         @media (max-width: $md3) {
             display: block;
         }
-
-
-
     }
 
     // .changeCurrencyArea__column
@@ -162,7 +157,6 @@ export default {
                 text-align: left;
                 margin-bottom: 10px;
             }
-
         }
 
         // .changeCurrencyArea__column_right
