@@ -1,28 +1,95 @@
 <template>
     <div>
-        <div class="cash__column">
-            <div class="cash__title title-text">
-                <h2 class="cash__pick-currecny">Выберите валюту:</h2>
-            </div>
+        <div class="changeCurrencyArea">
+            <div class="changeCurrencyArea__wrap">
+                <div class="changeCurrencyArea__title">
+                    <h3>Введите сумму для обмена:</h3>
+                </div>
 
-            <my-button class="cash__btn" @click="$emit('eventPickCash', cash)" v-for="cash in cashList" :key="cash.id"
-                :picked="cash.picked">{{ cash.name }}
-            </my-button>
+                <div class="changeCurrencyArea__row">
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                        <my-input class="result__roubles-summ" type="text" placeholder="Ввести здесь ..."
+                            v-model="usersRoubles" />
+                    </div>
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
+                        <my-select v-model="selectedFrom" :options="arrNamesCurrency"
+                            :baseCurrencyForSelect="baseCurrency" />
+                    </div>
+                </div>
+
+                <div class="changeCurrencyArea__row ">
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                        <h3>Обменять на:</h3>
+                    </div>
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
+                        <my-select v-model="selectedTo" :options="arrNamesCurrency"
+                            :baseCurrencyForSelect="baseCurrency" />
+                    </div>
+                </div>
+
+                <div class="changeCurrencyArea__row ">
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                        <h3>Результат обмена:</h3>
+                    </div>
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
+                        <div class="changeCurrencyArea__result-area">
+                            {{ result }}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+
     </div>
+
 </template>
 
 
 <script>
 
 export default {
+    data() {
+        return {
+            selectedFrom: '',
+            selectedTo: '',
+            usersRoubles: '',
+            result: '',
+        }
+    },
     props: {
         cashList: {
             type: Array,
-            required: true
+            required: true,
         },
-    }
-
+        arrNamesCurrency: {
+            type: Array,
+            required: true,
+        },
+        baseCurrency: {
+            type: String,
+            default: "Рубль",
+        }
+    },
+    methods: {
+        createNewResult() {
+            let selectObjFrom = this.cashList.find(item => {
+                if (this.selectedFrom) return item.name === this.selectedFrom;
+                else return item.name === this.baseCurrency;
+            });
+            let selectObjTo = this.cashList.find(item => {
+                if (this.selectedTo) return item.name === this.selectedTo;
+                else return item.name === this.baseCurrency;
+            });
+            // console.log(selectObjFrom);
+            // console.log(selectObjFrom.nominal);
+            this.result = (selectObjFrom.cost * Number(this.usersRoubles.replace(/ /g, '')) / selectObjTo.cost).toFixed(2).replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('') + ' ' + selectObjTo.shortName;
+        }
+    },
+    watch: {
+        usersRoubles() { this.createNewResult() },
+        selectedTo() { this.createNewResult() },
+        selectedFrom() { this.createNewResult() },
+    },
 }
 </script>
 
@@ -31,34 +98,72 @@ export default {
 @import '@/styles/_colors.scss';
 @import '@/styles/_variables.scss';
 
-.cash__column {
+.changeCurrencyArea {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border: 2px solid $accent;
-    margin: 0 auto;
-    width: 400px;
-    padding: 40px 45px;
-    height: 370px;
+    justify-content: center;
+    align-items: center;
+    width: 700px;
+    border: 2px solid $blue-light;
+    padding: 50px;
+    border-radius: 10px;
+    position: relative;
+    z-index: 1;
 
     *:last-child {
         margin: 0px 0px 0px 0px;
     }
 
-    @media (max-width: $md2) {
-        width: 350px;
-        padding: 30px 35px;
-        height: 350px;
+    // .changeCurrencyArea__wrap
+    &__wrap {
+        width: 100%;
+    }
+
+    // changeCurrencyArea__title
+    &__title {
+        margin-bottom: 30px;
+    }
+
+    // .changeCurrencyArea__row
+    &__row {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 35px;
+    }
+
+    // .changeCurrencyArea__column
+    &__column {
+
+        // .changeCurrencyArea__column_left
+        &_left {
+            flex: 0 1 40%;
+            margin-right: 50px;
+            text-align: right;
+        }
+
+        // .changeCurrencyArea__column_right
+        &_right {
+            flex: 0 1 60%;
+        }
+    }
+
+    // .changeCurrencyArea__result-area
+    &__result-area {
+        background-color: $blue-light;
+        width: 100%;
+        min-height: 46px;
+        border: 1px solid $accent;
+        color: $white;
+        line-height: 1;
+        font-size: 2rem;
+        padding: 12px 20px;
     }
 }
 
-.cash__title {}
+.result {
 
-.cash__btn {
-    margin-bottom: 25px;
-
-    @media (max-width: $md2) {
-        margin-bottom: 20px;
-    }
+    // .result__roubles-summ
+    &__roubles-summ {}
 }
 </style>

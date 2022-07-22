@@ -1,5 +1,7 @@
 # change_currency
-The project has three currency to change. Each currency has actual data price from server of Central Bank of Russia.
+Проект позволяет расчитать количество валюты при обмене из одного типа валюты в другую. Актуальные данные по курсу валют загружаются с сервера Центрального Бнка России. Валюта по умолчанию выбирается исходя из локали браузера.
+
+
 ## Project setup
 ```
 npm install

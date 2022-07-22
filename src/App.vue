@@ -10,29 +10,12 @@
         </div>
       </header>
 
-      <main class="main" :class="{ main__bgn: !pickedCash }">
+      <main class="main main__bgn">
         <div class="main__content _container">
 
-          <transition name="fade" mode="out-in">
-            <div class="main__row" v-if="pickedCash">
-              <div class="main__column">
-                <div class="main__pick-cash">
-                  <PickCash :cashList="cashItems" @eventPickCash="pickUpCash" />
-                </div>
-              </div>
-              <div class="main__column">
-                <InsertForm :nameCurrency="pickedCash" :costOfCurrency="this.cashItems[pickedCashId].cost" />
-              </div>
-            </div>
-
-            <div class="main__row" v-else>
-              <div class="main__column">
-                <div class="main__pick-cash">
-                  <PickCash :cashList="cashItems" @eventPickCash="pickUpCash" />
-                </div>
-              </div>
-            </div>
-          </transition>
+          <div class="main__row">
+            <PickCash :cashList="cashItems" :baseCurrency="baseCurrency" :arrNamesCurrency="arrCurrencyNames" />
+          </div>
 
         </div>
       </main>
@@ -45,14 +28,14 @@
 <script>
 import topAbout from "@/components/topAbout.vue";
 import PickCash from "@/components/PickCash.vue";
-import InsertForm from "@/components/InsertForm.vue";
+// import InsertForm from "@/components/InsertForm.vue";
 import axios from "axios";
 
 export default {
   components: {
     topAbout,
     PickCash,
-    InsertForm
+    // InsertForm
   },
 
   data() {
@@ -60,21 +43,24 @@ export default {
       pickedCash: '', // название валюты
       pickedCashId: '',
       response: '',
+      localLang: '',
+      baseCurrency: '',
+      arrCurrencyNames: [],
       cashItems: [
-        { name: "Доллары", id: 0, picked: false, shortName: "USD", symbol: '$', cost: '' },
-        { name: "Евро", id: 1, picked: false, shortName: "EUR", symbol: '€', cost: '' },
-        { name: "Юани", id: 2, picked: false, shortName: "CNY", symbol: '元', cost: '' },
+        { name: 'Рубль', id: "1", picked: false, shortName: "RUB", cost: 1, base: 2, },
       ]
     }
   },
   methods: {
     pickUpCash(cashItem) {
-      this.pickedCash = cashItem.symbol;
       this.pickedCashId = cashItem.id;
+      this.pickedCash = cashItem.name;
+
       this.cashItems.forEach(element => {
         element.picked = false;
       });
-      this.cashItems[cashItem.id].picked = true;
+      let indexOfArr = this.cashItems.findIndex(item => item.age === cashItem);
+      this.cashItems[indexOfArr].picked = true;
     },
 
     async loadCashCosts() {
@@ -82,23 +68,62 @@ export default {
         this.response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js', {
           params: {}
         });
-        this.cashItems.forEach(element => {
-          element.cost = this.response.data.Valute[element.shortName].Value;
-        });
+        // console.log(elementResp);
       } catch (e) {
         console.log(e);
       }
     },
 
+    // Находилокальную валюту
     findBaseCash() {
       const language = window.navigator.userLanguage || window.navigator.language;
-      console.log(language);
-    }
+      this.localLang = language.slice(-2, language.length).toLowerCase();
+    },
+
+    createPullOfCash() {
+      setTimeout(() => {
+        const mostPopularCurrency = ['USD', 'EUR'];
+        const elementResp = this.response.data.Valute;
+        // console.log(elementResp);
+
+        // Добавляем базовую локальную валюту в список
+        for (const key in this.response.data.Valute) {
+          let lowerKey = key.toLowerCase();
+          if (lowerKey.includes(this.localLang)) {
+            this.cashItems.push({
+              name: elementResp[key].Name, id: elementResp[key].ID, picked: false, shortName: elementResp[key].CharCode, cost: elementResp[key].Value, base: true,
+            });
+            this.baseCurrency = elementResp[key].Name;
+          }
+        };
+
+        // Проверям наличие основных валют в списке
+        mostPopularCurrency.forEach(element => {
+          let someElement = this.response.data.Valute[element];
+          if (
+            !this.cashItems.find(function (item) {
+              return item.name === element;
+            })
+          ) this.cashItems.push({
+            name: someElement.Name, id: someElement.ID, picked: false, shortName: someElement.CharCode, cost: someElement.Value, base: false,
+          })
+        })
+
+        // Создаём массив имён валют списка
+        this.cashItems.forEach(item => {
+          this.arrCurrencyNames.push(item.name);
+        });
+        let indexOfBaseCurrencu = this.arrCurrencyNames.findIndex((item, index) => item == this.baseCurrency);
+        this.arrCurrencyNames.splice(indexOfBaseCurrencu, 1);
+      }, 0)
+    },
+
 
   },
   mounted() {
-    this.loadCashCosts();
     this.findBaseCash();
+    this.loadCashCosts();
+    this.createPullOfCash();
   }
 };
 </script>
@@ -120,15 +145,16 @@ h1 {
 }
 
 h2 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 600;
   line-height: 1.2;
 
 }
 
 h3 {
-  font-size: 2.5rem;
+  font-size: 2rem;
   line-height: 1.2;
+  color: $accent;
 }
 
 .header {

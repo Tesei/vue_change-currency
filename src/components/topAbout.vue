@@ -3,10 +3,10 @@
     <div>
         <div class="header__row">
             <div class="header__column header__column_left">
-                <h1>Рассчёт обмена валюты</h1>
+                <h1>Калькулятор обмена валюты</h1>
             </div>
             <div class="header__column header__column_right">
-                <h2>Рубли в Доллары, Евро, Юани</h2>
+                <h2>Расчёт по актуальному курсу ЦБ России</h2>
             </div>
         </div>
     </div>

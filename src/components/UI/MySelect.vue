@@ -1,0 +1,84 @@
+<template>
+    <select class="select__item" v-model="modelValue" @change="changeOption">
+        <option class="select__option-default" value="">{{ baseCurrencyForSelect }}</option>
+        <option class="select__option" v-for="(option, index) in options" :key="index" :value="option" value="">
+            {{ option }}
+        </option>
+    </select>
+
+</template>
+
+
+<script>
+export default {
+    // указываем имя компонента, для его индентификации по-тегу
+    name: 'my-select',
+    props: {
+        modelValue: {
+            type: String
+        },
+        options: {
+            type: Array,
+            default: () => []
+        },
+        baseCurrencyForSelect: {
+            type: String,
+            default: "Доллар США"
+        }
+    },
+    methods: {
+        changeOption(event) {
+            this.$emit("update:modelValue", event.target.value)
+        }
+    },
+
+}
+</script>
+
+<style scoped lang="scss">
+@import '@/styles/_colors.scss';
+
+.select {
+
+    &__item {
+        width: 100%;
+        position: relative;
+        cursor: pointer;
+        padding: 12px 25px 12px 15px;
+        color: $accent;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 1.6rem;
+        box-shadow: 0px 2px 5px $fiolet-light;
+        outline: none;
+    }
+
+    &__option-default,
+    &__option {
+        color: lighten($accent, 20%);
+        display: block;
+        min-width: 100%;
+        left: 0;
+        border: 1px solid #d9d9d9;
+        border-top: 0;
+        background-color: lighten($fiolet-light, 46%);
+        font-size: 1.6rem;
+        line-height: 1.2;
+        cursor: pointer;
+        // padding: 15px 10px;
+        // margin: 10px 0px 0px 0px;
+
+        // @media (min-width: 992px) {
+        //     &:hover {
+        //         background: darken(#FFFEFB, 20%);
+        //     }
+        // }
+    }
+
+
+}
+
+option:checked {
+    display: none;
+}
+</style>

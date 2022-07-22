@@ -25,7 +25,11 @@ export default {
 .input {
     width: 100%;
     border: 1px solid $accent;
-    padding: 15px;
-    font-size: 2rem;
+    padding: 9.5px 15px;
+    font-size: 1.8rem;
+    color: $accent;
+    outline: none;
+    border: 1px solid $fiolet-light;
+
 }
 </style>
