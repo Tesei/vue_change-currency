@@ -113,6 +113,11 @@ export default {
         margin: 0px 0px 0px 0px;
     }
 
+    @media (max-width: $md3) {
+        padding: 20px;
+        max-width: 100%;
+    }
+
     // .changeCurrencyArea__wrap
     &__wrap {
         width: 100%;
@@ -121,6 +126,10 @@ export default {
     // changeCurrencyArea__title
     &__title {
         margin-bottom: 30px;
+
+        @media (max-width: $md3) {
+            margin-bottom: 10px;
+        }
     }
 
     // .changeCurrencyArea__row
@@ -130,6 +139,13 @@ export default {
         justify-content: center;
         align-items: center;
         margin-bottom: 35px;
+
+        @media (max-width: $md3) {
+            display: block;
+        }
+
+
+
     }
 
     // .changeCurrencyArea__column
@@ -140,6 +156,13 @@ export default {
             flex: 0 1 40%;
             margin-right: 50px;
             text-align: right;
+
+            @media (max-width: $md3) {
+                margin-right: 0px;
+                text-align: left;
+                margin-bottom: 10px;
+            }
+
         }
 
         // .changeCurrencyArea__column_right
