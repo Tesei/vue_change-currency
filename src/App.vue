@@ -26,7 +26,7 @@
           <div class="main__row" v-else>
             <div class="main__preloader">
               <h2>Загрузка актуальных курсов валют ..</h2>
-              <img src="../src/images/loading.gif" alt="">
+              <my-preloader />
             </div>
           </div>
 
@@ -52,7 +52,6 @@ export default {
   data() {
     return {
       pickedCash: '', // название валюты
-      // pickedCashId: '',
       response: '',
       localLang: '',
       baseCurrency: '',
@@ -65,7 +64,6 @@ export default {
   },
   methods: {
     pickUpCash(cashItem) {
-      // this.pickedCashId = cashItem.id;
       this.pickedCash = cashItem.name;
 
       this.cashItems.forEach(element => {
@@ -84,7 +82,7 @@ export default {
         setTimeout(() => {
           if (!this.response) {
             this.errMessage = "Сервер данных по курсам валют недоступен. Попоробуйтие обновить страницу или зайти на сайт поздее";
-            throw "ошибка в данных переменной response";
+            throw "ошибка в загрузке данных у переменной response";
           }
         }, 5000);
       } catch (err) {
