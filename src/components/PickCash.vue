@@ -7,24 +7,19 @@
                 </div>
 
                 <div class="changeCurrencyArea__row">
-                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
-                        <my-input class="result__roubles-summ" type="text" placeholder="Ввести здесь ..."
-                            v-model="usersRoubles" />
-                    </div>
-                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
-                        <my-select v-model="selectedFrom" :options="arrNamesCurrency"
-                            :baseCurrencyForSelect="baseCurrency" />
-                    </div>
+                    <my-input class="changeCurrencyArea__column changeCurrencyArea__column_left" type="text"
+                        placeholder="Ввести здесь ..." v-model="usersRoubles" />
+                    <my-select v-model="selectedFrom" :options="arrNamesCurrency" :baseCurrencyForSelect="baseCurrency"
+                        class="changeCurrencyArea__column changeCurrencyArea__column_right" />
                 </div>
 
                 <div class="changeCurrencyArea__row ">
                     <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
                         <h3>Обменять на:</h3>
                     </div>
-                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
-                        <my-select v-model="selectedTo" :options="arrNamesCurrency"
-                            :baseCurrencyForSelect="baseCurrency" />
-                    </div>
+
+                    <my-select v-model="selectedTo" :options="arrNamesCurrency" :baseCurrencyForSelect="baseCurrency"
+                        class="changeCurrencyArea__column changeCurrencyArea__column_right" />
                 </div>
 
                 <div class="changeCurrencyArea__row ">
@@ -148,7 +143,6 @@ export default {
         &_left {
             flex: 0 1 40%;
             margin-right: 50px;
-            text-align: right;
 
             @media (max-width: $md3) {
                 margin-right: 0px;
@@ -174,11 +168,5 @@ export default {
         font-size: 2rem;
         padding: 12px 20px;
     }
-}
-
-.result {
-
-    // .result__roubles-summ
-    &__roubles-summ {}
 }
 </style>
