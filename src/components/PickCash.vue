@@ -48,6 +48,7 @@
 <script>
 
 export default {
+    name: 'pick-cash',
     data() {
         return {
             selectedFrom: '',

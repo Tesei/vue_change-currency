@@ -62,6 +62,7 @@ export default {
       ]
     }
   },
+
   methods: {
     pickUpCash(cashItem) {
       this.pickedCash = cashItem.name;
@@ -100,7 +101,6 @@ export default {
       setTimeout(() => {
         const mostPopularCurrency = ['USD', 'EUR'];
         const elementResp = this.response.data.Valute;
-        // console.log(elementResp);
 
         // Добавляем базовую локальную валюту в список
         for (const key in elementResp) {
@@ -133,8 +133,6 @@ export default {
         this.arrCurrencyNames.splice(indexOfBaseCurrencu, 1);
       }, 0)
     },
-
-
   },
   async mounted() {
     this.findBaseCash();

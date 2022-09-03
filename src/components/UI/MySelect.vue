@@ -28,9 +28,8 @@ export default {
     methods: {
         changeOption(event) {
             this.$emit("update:modelValue", event.target.value)
-        }
+        },
     },
-
 }
 </script>
 
@@ -46,26 +45,27 @@ export default {
         font-style: normal;
         font-weight: 400;
         font-size: 1.8rem;
-        box-shadow: 0px 2px 5px $fiolet-light;
+        border: 1px solid $fiolet-light;
         outline: none;
+
+        &:focus {
+            outline: none;
+            box-shadow: 0px 2px 5px $fiolet-light;
+        }
     }
 
     &__option-default,
     &__option {
         color: lighten($accent, 20%);
         display: block;
-        max-width: 150px;
         left: 0;
         border: 1px solid #d9d9d9;
         border-top: 0;
         background-color: lighten($fiolet-light, 46%);
         font-size: 1.6rem;
-        line-height: 1.2;
+        line-height: 1.3;
         cursor: pointer;
-
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        outline: none;
 
         @media (min-width: 992px) {
             &:hover {
