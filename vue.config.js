@@ -3,7 +3,6 @@ module.exports = defineConfig({
   transpileDependencies: true
 })
 module.exports = {  
-  // Подключение общих стилей для всех компонентов:
   css: {
     loaderOptions: {
       sass: {

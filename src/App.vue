@@ -1,7 +1,6 @@
 
 <template>
   <div class="app">
-
     <div class="wrapper">
 
       <header class="header">
@@ -12,10 +11,8 @@
         <div class="main__content _container">
           <div class="main__bgn"> </div>
 
-
           <PickCash class="main__row" v-if="response" :cashList="cashItems" :baseCurrency="baseCurrency"
             :arrNamesCurrency="arrCurrencyNames" />
-
 
           <div class="main__row" v-else-if="errMessage">
             <div class="main__preloader">

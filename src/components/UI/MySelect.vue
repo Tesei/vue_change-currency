@@ -72,6 +72,10 @@ export default {
                 background-color: lighten($fiolet-light, 10%);
             }
         }
+
+        @media (max-width: $md4) {
+            font-size: 1.4rem;
+        }
     }
 }
 
