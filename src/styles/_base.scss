@@ -33,3 +33,20 @@ body {
         margin-bottom: 25px;
     }
 }
+
+h1 {
+	font-size: 3rem;
+	font-weight: 600;
+}
+
+h2 {
+	font-size: 2rem;
+	font-weight: 600;
+	line-height: 1.2;
+}
+
+h3 {
+	font-size: 2rem;
+	line-height: 1.2;
+	color: $accent;
+}

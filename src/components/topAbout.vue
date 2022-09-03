@@ -22,12 +22,25 @@ export default {
 
 
 <style scoped lang="scss">
-@import '@/styles/_colors.scss';
-@import '@/styles/_variables.scss';
-
 h1,
 h2 {
     color: $white;
+}
+
+h1 {
+    font-size: 2.8rem;
+
+    @media (max-width: $md4) {
+        font-size: 2rem;
+    }
+}
+
+h2 {
+    font-size: 2.2rem;
+
+    @media (max-width: $md4) {
+        font-size: 1.8rem;
+    }
 }
 
 .header {

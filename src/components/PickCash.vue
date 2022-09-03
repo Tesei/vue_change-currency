@@ -93,9 +93,6 @@ export default {
 
 
 <style scoped lang="scss">
-@import '@/styles/_colors.scss';
-@import '@/styles/_variables.scss';
-
 .changeCurrencyArea {
     display: flex;
     justify-content: center;

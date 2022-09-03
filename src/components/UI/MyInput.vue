@@ -15,18 +15,21 @@ export default {
         updateInput(event) {
             this.$emit('update:modelValue', event.target.value)
         }
+    },
+    computed: {
+        valueWithSpace() {
+            return this.value.replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('');
+        }
     }
 }
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/_colors.scss';
-
 .input {
     width: 100%;
     border: 1px solid $accent;
     padding: 9.5px 15px;
-    font-size: 1.8rem;
+    font-size: 2rem;
     color: $accent;
     outline: none;
     border: 1px solid $fiolet-light;

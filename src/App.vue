@@ -5,17 +5,17 @@
     <div class="wrapper">
 
       <header class="header">
-        <div class="header__content">
-          <topAbout />
-        </div>
+        <topAbout class="header__content" />
       </header>
 
-      <main class="main main__bgn">
+      <main class="main">
         <div class="main__content _container">
+          <div class="main__bgn"> </div>
 
-          <div class="main__row" v-if="response">
-            <PickCash :cashList="cashItems" :baseCurrency="baseCurrency" :arrNamesCurrency="arrCurrencyNames" />
-          </div>
+
+          <PickCash class="main__row" v-if="response" :cashList="cashItems" :baseCurrency="baseCurrency"
+            :arrNamesCurrency="arrCurrencyNames" />
+
 
           <div class="main__row" v-else-if="errMessage">
             <div class="main__preloader">
@@ -100,9 +100,10 @@ export default {
       setTimeout(() => {
         const mostPopularCurrency = ['USD', 'EUR'];
         const elementResp = this.response.data.Valute;
+        // console.log(elementResp);
 
         // Добавляем базовую локальную валюту в список
-        for (const key in this.response.data.Valute) {
+        for (const key in elementResp) {
           let lowerKey = key.toLowerCase();
           if (lowerKey.includes(this.localLang)) {
             this.cashItems.push({
@@ -135,38 +136,18 @@ export default {
 
 
   },
-  mounted() {
+  async mounted() {
     this.findBaseCash();
-    this.loadCashCosts();
+    await this.loadCashCosts();
     this.createPullOfCash();
   }
 };
 </script>
 
 <style lang="scss">
-@import '@/styles/index.scss';
-
 #app {}
 
 .wrapper {}
-
-h1 {
-  font-size: 3rem;
-  font-weight: 600;
-}
-
-h2 {
-  font-size: 2rem;
-  font-weight: 600;
-  line-height: 1.2;
-
-}
-
-h3 {
-  font-size: 2rem;
-  line-height: 1.2;
-  color: $accent;
-}
 
 .header {
 
@@ -190,27 +171,24 @@ h3 {
 
   }
 
-  // .main__bgn
-  &__bgn {
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: -30%;
-      right: -40%;
-      mask-image: url(../src/images/cashier-svg.svg);
-      mask-size: 300px;
-      mask-repeat: no-repeat;
-      mask-position: center;
-      background-color: lighten($fiolet-light, 45%);
-      pointer-events: none;
-    }
-  }
-
   // .main__content
   &__content {
     width: 100%;
+  }
+
+  // .main__bgn
+  &__bgn {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    position: absolute;
+    top: 3%;
+    right: 2%;
+    mask-image: url(@/images/cashier-svg.svg);
+    mask-size: 300px;
+    mask-repeat: no-repeat;
+    mask-position: top right;
+    background-color: lighten($fiolet-light, 45%);
   }
 
   // .main__preloader
@@ -235,7 +213,7 @@ h3 {
     display: flex;
     justify-content: space-evenly;
     position: relative;
-    z-index: 1;
+    z-index: 2;
 
     @media (max-width: $md3) {
       display: block;

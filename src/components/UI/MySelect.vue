@@ -35,8 +35,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-@import '@/styles/_colors.scss';
-
 .select {
 
     &__item {
@@ -47,7 +45,7 @@ export default {
         color: $accent;
         font-style: normal;
         font-weight: 400;
-        font-size: 1.6rem;
+        font-size: 1.8rem;
         box-shadow: 0px 2px 5px $fiolet-light;
         outline: none;
     }
@@ -56,7 +54,7 @@ export default {
     &__option {
         color: lighten($accent, 20%);
         display: block;
-        min-width: 100%;
+        max-width: 150px;
         left: 0;
         border: 1px solid #d9d9d9;
         border-top: 0;
@@ -65,9 +63,13 @@ export default {
         line-height: 1.2;
         cursor: pointer;
 
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
         @media (min-width: 992px) {
             &:hover {
-                background-color: lighten($fiolet-light, 42%);
+                background-color: lighten($fiolet-light, 10%);
             }
         }
     }
