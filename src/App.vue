@@ -95,40 +95,38 @@ export default {
     },
 
     createPullOfCash() {
-      setTimeout(() => {
-        const mostPopularCurrency = ['USD', 'EUR'];
-        const elementResp = this.response.data.Valute;
+      const mostPopularCurrency = ['USD', 'EUR'];
+      const elementResp = this.response.data.Valute;
 
-        // Добавляем базовую локальную валюту в список
-        for (const key in elementResp) {
-          let lowerKey = key.toLowerCase();
-          if (lowerKey.includes(this.localLang)) {
-            this.cashItems.push({
-              name: elementResp[key].Name, id: elementResp[key].ID, picked: false, shortName: elementResp[key].CharCode, cost: elementResp[key].Value, base: true,
-            });
-            this.baseCurrency = elementResp[key].Name;
-          }
-        };
+      // Добавляем базовую локальную валюту в список
+      for (const key in elementResp) {
+        let lowerKey = key.toLowerCase();
+        if (lowerKey.includes(this.localLang)) {
+          this.cashItems.push({
+            name: elementResp[key].Name, id: elementResp[key].ID, picked: false, shortName: elementResp[key].CharCode, cost: elementResp[key].Value, base: true,
+          });
+          this.baseCurrency = elementResp[key].Name;
+        }
+      };
 
-        // Проверям наличие основных валют в списке
-        mostPopularCurrency.forEach(element => {
-          let someElement = this.response.data.Valute[element];
-          if (
-            !this.cashItems.find(function (item) {
-              return item.name === element;
-            })
-          ) this.cashItems.push({
-            name: someElement.Name, id: someElement.ID, picked: false, shortName: someElement.CharCode, cost: someElement.Value, base: false,
+      // Проверям наличие основных валют в списке
+      mostPopularCurrency.forEach(element => {
+        let someElement = this.response.data.Valute[element];
+        if (
+          !this.cashItems.find(function (item) {
+            return item.name === element;
           })
+        ) this.cashItems.push({
+          name: someElement.Name, id: someElement.ID, picked: false, shortName: someElement.CharCode, cost: someElement.Value, base: false,
         })
+      })
 
-        // Создаём массив имён валют списка
-        this.cashItems.forEach(item => {
-          this.arrCurrencyNames.push(item.name);
-        });
-        let indexOfBaseCurrencu = this.arrCurrencyNames.findIndex((item, index) => item == this.baseCurrency);
-        this.arrCurrencyNames.splice(indexOfBaseCurrencu, 1);
-      }, 0)
+      // Создаём массив имён валют списка
+      this.cashItems.forEach(item => {
+        this.arrCurrencyNames.push(item.name);
+      });
+      let indexOfBaseCurrencu = this.arrCurrencyNames.findIndex(item => item == this.baseCurrency);
+      this.arrCurrencyNames.splice(indexOfBaseCurrencu, 1);
     },
   },
   async mounted() {

@@ -18,7 +18,7 @@
                         <h3>Обменять на:</h3>
                     </div>
 
-                    <my-select v-model="selectedTo" :options="arrNamesCurrency" :baseCurrencyForSelect="baseCurrency"
+                    <my-select v-model="selectedTo" :options="arrNamesCurrency"
                         class="changeCurrencyArea__column changeCurrencyArea__column_right" />
                 </div>
 
@@ -60,6 +60,7 @@ export default {
         arrNamesCurrency: {
             type: Array,
             required: true,
+            default: () => []
         },
         baseCurrency: {
             type: String,
@@ -70,11 +71,11 @@ export default {
         createNewResult() {
             let selectObjFrom = this.cashList.find(item => {
                 if (this.selectedFrom) return item.name === this.selectedFrom;
-                else return item.name === this.baseCurrency;
+                return item.name === this.baseCurrency;
             });
             let selectObjTo = this.cashList.find(item => {
                 if (this.selectedTo) return item.name === this.selectedTo;
-                else return item.name === this.baseCurrency;
+                return item.name === "Доллар США";
             });
             this.result = (selectObjFrom.cost * Number(this.usersRoubles.replace(/ /g, '')) / selectObjTo.cost).toFixed(2).replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('') + ' ' + selectObjTo.shortName;
         }

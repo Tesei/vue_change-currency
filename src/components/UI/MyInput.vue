@@ -30,6 +30,5 @@ export default {
     color: $accent;
     outline: none;
     border: 1px solid $fiolet-light;
-
 }
 </style>
