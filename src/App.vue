@@ -41,6 +41,7 @@ import PickCash from "@/components/PickCash.vue";
 import axios from "axios";
 
 export default {
+  name: 'App',
   components: {
     topAbout,
     PickCash,
@@ -73,18 +74,18 @@ export default {
 
     async loadCashCosts() {
       try {
-        this.response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js', {
-          params: {}
-        });
         // Вывод сообщения в случае отсутствия ответа сервера
         setTimeout(() => {
           if (!this.response) {
             this.errMessage = "Сервер данных по курсам валют недоступен. Попоробуйтие обновить страницу или зайти на сайт поздее";
             throw "ошибка в загрузке данных у переменной response";
           }
-        }, 5000);
+        }, 2000);
+
+        // Запрос на сервер
+        this.response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
       } catch (err) {
-        console.log(err);
+        console.log(err.message);
       }
     },
 
@@ -107,7 +108,7 @@ export default {
           });
           this.baseCurrency = elementResp[key].Name;
         }
-      };
+      }
 
       // Проверям наличие основных валют в списке
       mostPopularCurrency.forEach(element => {

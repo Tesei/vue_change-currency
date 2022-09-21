@@ -1,7 +1,7 @@
 <template>
-    <select class="select__item" v-model="modelValue" @change="changeOption">
+    <select class="select__item" @change="changeOption">
         <option class="select__option-default" value="">{{ baseCurrencyForSelect }}</option>
-        <option class="select__option" v-for="(option, index) in options" :key="index" :value="option" value="">
+        <option class="select__option" v-for="(option, index) in options" :key="index" :value="option">
             {{ option }}
         </option>
     </select>
@@ -13,9 +13,7 @@
 export default {
     name: 'my-select',
     props: {
-        modelValue: {
-            type: String,
-        },
+        modelValue: [String],
         options: {
             type: Array,
             default: () => []
