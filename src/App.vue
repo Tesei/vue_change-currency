@@ -85,7 +85,7 @@ export default {
         // Запрос на сервер
         this.response = await axios.get('https://www.cbr-xml-daily.ru/daily_json.js');
       } catch (err) {
-        console.log(err.message);
+        console.warn('Error', err.message);
       }
     },
 
