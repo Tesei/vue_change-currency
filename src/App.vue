@@ -4,7 +4,7 @@
     <div class="wrapper">
 
       <header class="header">
-        <topAbout class="header__content" />
+        <the-top class="header__content" />
       </header>
 
       <main class="main">
@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import topAbout from "@/components/topAbout.vue";
+import TheTop from "@/components/TheTop.vue";
 import PickCash from "@/components/PickCash.vue";
 import axios from "axios";
 
 export default {
   name: 'App',
   components: {
-    topAbout,
+    TheTop,
     PickCash,
   },
 

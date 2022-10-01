@@ -1,4 +1,5 @@
 <template>
+
     <div>
         <div class="changeCurrencyArea">
             <div class="changeCurrencyArea__wrap">
@@ -7,26 +8,40 @@
                 </div>
 
                 <div class="changeCurrencyArea__row">
-                    <my-input class="changeCurrencyArea__column changeCurrencyArea__column_left" type="text"
-                        placeholder="Ввести здесь ..." v-model="usersRoubles" />
-                    <my-select v-model="selectedFrom" :options="arrNamesCurrency" :baseCurrencyForSelect="baseCurrency"
-                        class="changeCurrencyArea__column changeCurrencyArea__column_right" />
+                    <my-input
+                        class="changeCurrencyArea__column changeCurrencyArea__column_left"
+                        type="text"
+                        placeholder="Ввести здесь ..."
+                        v-model="usersRoubles"
+                    />
+                    <my-select
+                        v-model="selectedFrom"
+                        :options="arrNamesCurrency"
+                        :baseCurrencyForSelect="baseCurrency"
+                        class="changeCurrencyArea__column changeCurrencyArea__column_right"
+                    />
                 </div>
 
                 <div class="changeCurrencyArea__row ">
-                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                    <div
+                        class="changeCurrencyArea__column changeCurrencyArea__column_left">
                         <h3>Обменять на:</h3>
                     </div>
 
-                    <my-select v-model="selectedTo" :options="arrNamesCurrency"
-                        class="changeCurrencyArea__column changeCurrencyArea__column_right" />
+                    <my-select
+                        v-model="selectedTo"
+                        :options="arrNamesCurrency"
+                        class="changeCurrencyArea__column changeCurrencyArea__column_right"
+                    />
                 </div>
 
                 <div class="changeCurrencyArea__row ">
-                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                    <div
+                        class="changeCurrencyArea__column changeCurrencyArea__column_left">
                         <h3>Результат обмена:</h3>
                     </div>
-                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
+                    <div
+                        class="changeCurrencyArea__column changeCurrencyArea__column_right">
                         <div class="changeCurrencyArea__result-area">
                             {{ result }}
                         </div>

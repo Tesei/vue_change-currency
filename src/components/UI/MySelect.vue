@@ -1,9 +1,23 @@
 <template>
-    <select class="select__item" @change="changeOption">
-        <option class="select__option-default" value="">{{ baseCurrencyForSelect }}</option>
-        <option class="select__option" v-for="(option, index) in options" :key="index" :value="option">
+
+    <select
+        class="select__item"
+        @change="changeOption"
+    >
+        <option
+            class="select__option-default"
+            value=""
+        >{{ baseCurrencyForSelect }}</option>
+
+        <option
+            class="select__option"
+            v-for="(option, index) in options"
+            :key="index"
+            :value="option"
+        >
             {{ option }}
         </option>
+
     </select>
 
 </template>

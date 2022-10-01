@@ -1,7 +1,12 @@
 <template>
 
-    <input type=" text" class="input" :value="modelValue" @input="updateInput"
-        oninput="this.value = this.value.replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('')">
+    <input
+        type=" text"
+        class="input"
+        :value="modelValue"
+        @input="updateInput"
+        oninput="this.value = this.value.replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('')"
+    >
 
 </template>
 
