@@ -5,8 +5,14 @@
         class="input"
         :value="modelValue"
         @input="updateInput"
-        oninput="this.value = this.value.replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('').trim()"
     >
+    <!-- <input
+        type=" text"
+        class="input"
+        :value="modelValue"
+        @input="updateInput"
+        oninput="this.value = this.value.replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('').trim()"
+    > -->
 
 </template>
 
@@ -20,7 +26,8 @@ export default {
     },
     methods: {
         updateInput(event) {
-            this.$emit('update:modelValue', event.target.value)
+            let updatedValue = event.target.value.replace(/[^\d.,]/g, '').split('').reverse().join('').replace(/(.{3})/g, '$1 ').replace(/[,]/g, '.').split('').reverse().join('').trim()
+            this.$emit('update:modelValue', updatedValue)
         },
     },
 }
