@@ -11,16 +11,27 @@
         <div class="main__content _container">
           <div class="main__bgn"> </div>
 
-          <PickCash class="main__row" v-if="response" :cashList="cashItems" :baseCurrency="baseCurrency"
-            :arrNamesCurrency="arrCurrencyNames" />
+          <PickCash
+              class="main__row"
+              v-if="response"
+              :cashList="cashItems"
+              :baseCurrency="baseCurrency"
+              :arrNamesCurrency="arrCurrencyNames"
+          />
 
-          <div class="main__row" v-else-if="errMessage">
+          <div
+              class="main__row"
+              v-else-if="errMessage"
+          >
             <div class="main__preloader">
               <h2>{{ errMessage }}</h2>
             </div>
           </div>
 
-          <div class="main__row" v-else>
+          <div
+              class="main__row"
+              v-else
+          >
             <div class="main__preloader">
               <h2>Загрузка актуальных курсов валют ..</h2>
               <my-preloader />
@@ -104,7 +115,12 @@ export default {
         let lowerKey = key.toLowerCase();
         if (lowerKey.includes(this.localLang)) {
           this.cashItems.push({
-            name: elementResp[key].Name, id: elementResp[key].ID, picked: false, shortName: elementResp[key].CharCode, cost: elementResp[key].Value, base: true,
+            name: elementResp[key].Name,
+            id: elementResp[key].ID,
+            picked: false,
+            shortName: elementResp[key].CharCode,
+            cost: elementResp[key].Value,
+            base: true,
           });
           this.baseCurrency = elementResp[key].Name;
         }
@@ -118,7 +134,12 @@ export default {
             return item.name === element;
           })
         ) this.cashItems.push({
-          name: someElement.Name, id: someElement.ID, picked: false, shortName: someElement.CharCode, cost: someElement.Value, base: false,
+          name: someElement.Name,
+          id: someElement.ID,
+          picked: false,
+          shortName: someElement.CharCode,
+          cost: someElement.Value,
+          base: false,
         })
       })
 

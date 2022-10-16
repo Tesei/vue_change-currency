@@ -23,8 +23,7 @@
                 </div>
 
                 <div class="changeCurrencyArea__row ">
-                    <div
-                        class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
                         <h3>Обменять на:</h3>
                     </div>
 
@@ -36,12 +35,10 @@
                 </div>
 
                 <div class="changeCurrencyArea__row ">
-                    <div
-                        class="changeCurrencyArea__column changeCurrencyArea__column_left">
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_left">
                         <h3>Результат обмена:</h3>
                     </div>
-                    <div
-                        class="changeCurrencyArea__column changeCurrencyArea__column_right">
+                    <div class="changeCurrencyArea__column changeCurrencyArea__column_right">
                         <div class="changeCurrencyArea__result-area">
                             {{ result }}
                         </div>
